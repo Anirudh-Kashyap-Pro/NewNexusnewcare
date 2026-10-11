@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusCare — National Hospital Network & Ergonomic Patient Portal</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans Devanagari for clean typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Toast Notification Container -->
+  <div id="toast-wrapper" style="position: fixed; top: 4.5rem; right: 1.5rem; z-index: 150; display: flex; flex-direction: column; gap: 0.5rem; pointer-events: none;"></div>
+
+  <!-- ==========================================================================
+       1. TOP ERGONOMIC ACCESSIBILITY BAR (Kids, Adults & Seniors)
+       ========================================================================== -->
+  <div class="accessibility-bar">
+    <div class="access-group">
+      <span>👁️ Text Size:</span>
+      <button id="btn-font-decrease" class="access-btn" title="Decrease font size">A-</button>
+      <button id="btn-font-increase" class="access-btn" title="Increase font size">A+</button>
+      <button id="btn-senior-mode" class="access-btn" title="Extra large text, high contrast, simplified touch targets">👴 Senior Mode</button>
+      <button id="btn-kid-mode" class="access-btn" title="Playful colors, simplified terms for kids">🎈 Kid Friendly</button>
+      <button id="btn-contrast-mode" class="access-btn" title="Toggle high contrast accessibility">Contrast</button>
+    </div>
+
+    <div class="access-group">
+      <button id="btn-lang-top" class="access-btn" style="background: var(--primary-teal); border: none;">🌐 हिन्दी</button>
+      <a href="tel:108" class="access-btn" style="background: var(--coral-rose); border: none; text-decoration: none; font-weight: 800;">
+        🚨 Call 108 Ambulance
+      </a>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       2. MAIN TOP NAVIGATION BAR
+       ========================================================================== -->
+  <nav class="top-navbar">
+    <a href="#home" class="nav-brand">
+      <div class="brand-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07l14.14-14.14"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">
+          <span>NexusCare</span>
+          <span style="font-size: 0.68rem; background: var(--saffron-light); color: var(--saffron-warm); padding: 2px 7px; border-radius: 99px;">ABHA Verified</span>
+        </div>
+        <div class="brand-tagline">National Hospital Network & Patient Portal</div>
+      </div>
+    </a>
+
+    <!-- Nav Links to Different Webpages -->
+    <ul class="nav-links">
+      <li>
+        <button class="nav-link-btn active" data-page="home">
+          <span>🏠 Home</span>
+        </button>
+      </li>
+      <li>
+        <button class="nav-link-btn" data-page="vacancies">
+          <span>🎟️ Department Vacancies</span>
+        </button>
+      </li>
+      <li>
+        <button class="nav-link-btn" data-page="health">
+          <span>🫀 My Health & Anatomy</span>
+        </button>
+      </li>
+      <li>
+        <button class="nav-link-btn" data-page="partner">
+          <span>🏥 Hospital Partner & Staff</span>
+        </button>
+      </li>
+      <li>
+        <button class="nav-link-btn" data-page="emergency">
+          <span>🚑 Ambulance & 108</span>
+        </button>
+      </li>
+    </ul>
+
+    <div class="nav-right-actions">
+      <button id="btn-top-ambulance" class="btn-emergency-pill">
+        <span>🚑 Call 108</span>
+      </button>
+
+      <button id="btn-open-auth-modal" class="btn-auth-profile">
+        <span style="width: 26px; height: 26px; border-radius: 50%; background: var(--primary-teal); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem;">RK</span>
+        <span>Ramesh (Patient)</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==========================================================================
+       PAGE 1: HOME PAGE (Hygiene Articles, Challenges, Surveys & Health Snapshot)
+       ========================================================================== -->
+  <main id="page-home" class="page-container">
+    
+    <!-- Hero Banner with Auth Snapshot -->
+    <div class="home-hero-banner">
+      <div class="home-hero-text">
+        <div class="home-badge-tag">
+          <span>🇮🇳</span>
+          <span>Ayushman Bharat Digital Health Mission Partner</span>
+        </div>
+        <h1 class="home-hero-title">
+          Smarter Hospital Coordination, <br>
+          <span style="color: var(--primary-teal-dark);">Zero Waiting Hassle for Every Family</span>
+        </h1>
+        <p class="home-hero-desc">
+          Book hospital appointment seats like movie tickets, resolve minor illnesses at home with AI doctors, and monitor your family's personal health status from kids to grandparents.
+        </p>
+        <div class="hero-action-buttons">
+          <button class="btn-primary-action" onclick="navigateToPage('vacancies')">
+            <span>🎟️ Book Department Seats (BookMyShow Style)</span>
+          </button>
+          <button class="btn-secondary-action" onclick="navigateToPage('health')">
+            <span>🫀 View My Personal Anatomy Diagram</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Vitals Snapshot Card -->
+      <div class="hero-vitals-card">
+        <div class="vitals-header">
+          <strong style="color: var(--text-heading); font-size: 0.95rem;">Ramesh Kumar (ABHA)</strong>
+          <span style="font-size: 0.72rem; color: var(--emerald-green); font-weight: 700;">● Active</span>
+        </div>
+        <div class="vitals-grid">
+          <div class="vital-item">
+            <span class="vital-label">Blood Group</span>
+            <span class="vital-val" style="color: var(--coral-rose);">B+</span>
+          </div>
+          <div class="vital-item">
+            <span class="vital-label">Blood Sugar (Fast)</span>
+            <span class="vital-val" style="color: var(--primary-teal);">98 mg/dL</span>
+          </div>
+          <div class="vital-item">
+            <span class="vital-label">Blood Pressure</span>
+            <span class="vital-val">118/78</span>
+          </div>
+          <div class="vital-item">
+            <span class="vital-label">Last Checkup</span>
+            <span class="vital-val" style="font-size: 0.82rem;">18 Sep 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Family Health Challenges & Streaks -->
+    <div class="section-heading-bar">
+      <div>
+        <h2 class="section-title">
+          <span>🔥</span>
+          <span>Daily Family Health Challenges & Streaks</span>
+        </h2>
+        <span class="section-subtitle">Earn wellness points and build healthy daily habits to keep hospital visits away!</span>
+      </div>
+      <div style="background: var(--saffron-light); color: var(--saffron-warm); font-weight: 800; padding: 4px 14px; border-radius: var(--radius-pill); font-size: 0.85rem;">
+        🔥 6-Day Family Wellness Streak!
+      </div>
+    </div>
+
+    <div class="challenges-grid">
+      <!-- Challenge 1: Water -->
+      <div class="challenge-card">
+        <div>
+          <div class="challenge-card-header">
+            <div class="challenge-icon" style="background: var(--sapphire-light); color: var(--sapphire-blue);">💧</div>
+            <div>
+              <strong style="font-size: 1rem; color: var(--text-heading);">Hydration Goal: 8 Glasses</strong>
+              <div id="water-count-display" style="font-size: 0.82rem; color: var(--text-muted);">5/8 Glasses (1.25L drank)</div>
+            </div>
+          </div>
+          <div class="challenge-progress-bar">
+            <div id="water-progress-fill" class="challenge-progress-fill" style="width: 62.5%; background: var(--sapphire-blue);"></div>
+          </div>
+        </div>
+        <button id="btn-log-water" class="btn-secondary-action" style="padding: 0.45rem 1rem; font-size: 0.82rem; justify-content: center;">
+          + Drink 1 Glass (Log Now)
+        </button>
+      </div>
+
+      <!-- Challenge 2: Walk -->
+      <div class="challenge-card">
+        <div>
+          <div class="challenge-card-header">
+            <div class="challenge-icon" style="background: var(--emerald-light); color: var(--emerald-green);">🚶‍♂️</div>
+            <div>
+              <strong style="font-size: 1rem; color: var(--text-heading);">15-Min Post-Meal Walk</strong>
+              <div style="font-size: 0.82rem; color: var(--text-muted);">Lowers post-prandial blood sugar spikes</div>
+            </div>
+          </div>
+          <div class="challenge-progress-bar">
+            <div class="challenge-progress-fill" style="width: 100%; background: var(--emerald-green);"></div>
+          </div>
+        </div>
+        <button id="btn-complete-walk" class="btn-secondary-action" style="padding: 0.45rem 1rem; font-size: 0.82rem; justify-content: center;">
+          ✓ Mark Completed
+        </button>
+      </div>
+
+      <!-- Challenge 3: Zero Added Sugar -->
+      <div class="challenge-card">
+        <div>
+          <div class="challenge-card-header">
+            <div class="challenge-icon" style="background: var(--coral-light); color: var(--coral-rose);">🥗</div>
+            <div>
+              <strong style="font-size: 1rem; color: var(--text-heading);">Zero White Sugar Day</strong>
+              <div style="font-size: 0.82rem; color: var(--text-muted);">Replaced sweets with fresh seasonal fruits</div>
+            </div>
+          </div>
+          <div class="challenge-progress-bar">
+            <div class="challenge-progress-fill" style="width: 100%; background: var(--saffron-orange);"></div>
+          </div>
+        </div>
+        <div style="font-size: 0.82rem; color: var(--emerald-green); font-weight: 700; text-align: center;">
+          ✓ Completed for Today! (+50 Wellness Points)
+        </div>
+      </div>
+    </div>
+
+    <!-- Hygiene & Healthcare Articles Grid -->
+    <div class="section-heading-bar">
+      <div>
+        <h2 class="section-title">
+          <span>📚</span>
+          <span>Hygiene & Preventive Healthcare Articles</span>
+        </h2>
+        <span class="section-subtitle">Medically verified guidance for children, parents, and seniors</span>
+      </div>
+    </div>
+
+    <div class="articles-grid">
+      <!-- Article 1 -->
+      <div class="article-card" onclick="alert('Article: Monsoon Dengue Prevention\n\n1. Check for stagnant water in coolers.\n2. Apply neem or citronella lotion on kids.\n3. Keep hydration high with ORS and tender coconut water.')">
+        <div class="article-thumb">🦟</div>
+        <div class="article-body">
+          <div>
+            <div class="article-tag">Seasonal Health</div>
+            <h3 class="article-title">Monsoon & Dengue Prevention: 5 Life-saving Hygiene Rules</h3>
+          </div>
+          <span class="article-read-time">📖 3 min read • By Dr. Anita Joshi</span>
+        </div>
+      </div>
+
+      <!-- Article 2 -->
+      <div class="article-card" onclick="alert('Article: Pediatric Nutrition for Growing Kids\n\n1. Ensure adequate protein with lentils, paneer, and eggs.\n2. Replace packaged snacks with roasted makhana and dry fruits.\n3. Daily 30 mins outdoor sunlight for natural Vitamin D.')">
+        <div class="article-thumb" style="background: linear-gradient(135deg, var(--saffron-light), var(--coral-light));">🍎</div>
+        <div class="article-body">
+          <div>
+            <div class="article-tag" style="color: var(--saffron-orange);">Kid Nutrition</div>
+            <h3 class="article-title">Immune Boosters for Kids: Replacing Packaged Snacks</h3>
+          </div>
+          <span class="article-read-time">📖 4 min read • Pediatric Care</span>
+        </div>
+      </div>
+
+      <!-- Article 3 -->
+      <div class="article-card" onclick="alert('Article: Senior Mobility & Joint Care\n\n1. Low-impact seated leg extensions.\n2. Stay hydrated to maintain synovial fluid.\n3. Warm compresses during early mornings.')">
+        <div class="article-thumb" style="background: linear-gradient(135deg, var(--emerald-light), var(--sapphire-light));">🧘</div>
+        <div class="article-body">
+          <div>
+            <div class="article-tag" style="color: var(--emerald-green);">Senior Wellness</div>
+            <h3 class="article-title">Senior Mobility: Simple Daily Exercises to Protect Knee Cartilage</h3>
+          </div>
+          <span class="article-read-time">📖 5 min read • Orthopedic Clinic</span>
+        </div>
+      </div>
+
+      <!-- Article 4 -->
+      <div class="article-card" onclick="alert('WHO Hand Hygiene: The 6-Step Technique\n\n1. Palm to palm\n2. Between fingers\n3. Back of hands\n4. Base of thumbs\n5. Back of fingers\n6. Fingernails and wrists')">
+        <div class="article-thumb" style="background: linear-gradient(135deg, var(--primary-teal-light), var(--saffron-light));">🧼</div>
+        <div class="article-body">
+          <div>
+            <div class="article-tag">Hygiene Audit</div>
+            <h3 class="article-title">WHO 6-Step Handwash Protocol: The Fun Song Routine for Kids</h3>
+          </div>
+          <span class="article-read-time">📖 2 min read • Infection Prevention</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Health Surveys & Check-ins Banner -->
+    <div class="survey-banner-box">
+      <div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-heading); margin-bottom: 0.35rem;">
+          📋 Quick 60-Second Family Seasonal Health & Hygiene Audit
+        </h3>
+        <p style="font-size: 0.9rem; color: var(--text-body);">
+          Answer 3 simple questions to assess seasonal flu, allergy risk, or household water safety.
+        </p>
+      </div>
+      <button id="btn-start-survey" class="btn-primary-action" style="background: var(--saffron-warm);">
+        Take 60-Second Check-in
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ==========================================================================
+       PAGE 2: DEPARTMENT VACANCIES - BOOKMYSHOW MOVIE STYLE GRID
+       ========================================================================== -->
+  <main id="page-vacancies" class="page-container hidden">
+    <div class="section-heading-bar">
+      <div>
+        <h1 class="section-title">
+          <span>🎟️</span>
+          <span>Book Hospital Consultation Seats (BookMyShow Style)</span>
+        </h1>
+        <span class="section-subtitle">
+          Pick your department, view open consultation vacancies, and reserve your exact consultation seat to avoid crowded waiting rooms!
+        </span>
+      </div>
+    </div>
+
+    <div class="bms-booking-wrapper">
+      
+      <!-- Department Selector Pills -->
+      <div class="dept-pill-selector">
+        <button class="dept-slot-pill active" data-dept="cardiology">
+          <span>❤️ Cardiology (हृदय)</span>
+          <span class="dept-vacancy-badge">14 Vacant</span>
+        </button>
+        <button class="dept-slot-pill" data-dept="orthopedics">
+          <span>🦴 Orthopedics (हड्डी)</span>
+          <span class="dept-vacancy-badge">8 Vacant</span>
+        </button>
+        <button class="dept-slot-pill" data-dept="pediatrics">
+          <span>👶 Pediatrics (बाल रोग)</span>
+          <span class="dept-vacancy-badge">22 Vacant</span>
+        </button>
+        <button class="dept-slot-pill" data-dept="genmedicine">
+          <span>🩺 General Medicine</span>
+          <span class="dept-vacancy-badge">6 Vacant</span>
+        </button>
+        <button class="dept-slot-pill" data-dept="neurology">
+          <span>🧠 Neurology</span>
+          <span class="dept-vacancy-badge">11 Vacant</span>
+        </button>
+        <button class="dept-slot-pill" data-dept="dermatology">
+          <span>🧴 Dermatology</span>
+          <span class="dept-vacancy-badge">19 Vacant</span>
+        </button>
+      </div>
+
+      <!-- Theatrical Doctor Consultation Desk Curved Screen Bar -->
+      <div class="theater-screen-bar">
+        <div class="theater-screen-curve"></div>
+        <div id="theater-screen-doctor" class="theater-screen-label">
+          CONSULTATION DESK: DR. PRIYA NAIR (ROOM 204) • 14 SEATS VACANT
+        </div>
+      </div>
+
+      <!-- The Seat Matrix (Movie Hall Grid) -->
+      <div id="seat-matrix-container" class="seat-matrix-grid">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Legend -->
+      <div class="seat-legend-row">
+        <div class="legend-item">
+          <div class="legend-sample" style="background: var(--emerald-light); border: 1.5px solid var(--emerald-green);"></div>
+          <span>Available / Vacant</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-sample" style="background: var(--saffron-orange);"></div>
+          <span>Selected by You</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-sample" style="background: #cbd5e1;"></div>
+          <span>Booked / Occupied</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-sample" style="background: var(--sapphire-light); border: 1.5px solid var(--sapphire-blue);"></div>
+          <span>Senior / Divyangjan Reserved</span>
+        </div>
+      </div>
+
+      <!-- Checkout Strip -->
+      <div class="booking-checkout-strip">
+        <div>
+          <div id="selected-seat-badge" style="font-size: 1.15rem; font-weight: 800; color: var(--text-heading);">
+            No Seat Selected Yet
+          </div>
+          <div id="selected-seat-fee" style="font-size: 0.85rem; color: var(--text-muted);">
+            Fee: Select an available seat
+          </div>
+        </div>
+        <button id="btn-confirm-seat-booking" class="btn-primary-action" style="background: var(--primary-teal);">
+          🎟️ Confirm Appointment Booking
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       PAGE 3: PERSONALIZED HEALTH RECORD & ORGAN ANATOMY DIAGRAM
+       ========================================================================== -->
+  <main id="page-health" class="page-container hidden">
+    <div class="section-heading-bar">
+      <div>
+        <h1 class="section-title">
+          <span>🫀</span>
+          <span>Personalized Health Records & Organ Health Anatomy</span>
+        </h1>
+        <span class="section-subtitle">
+          Your personal medical vitals, blood sugar levels, and interactive organ status diagram.
+        </span>
+      </div>
+    </div>
+
+    <div class="health-record-wrapper">
+      
+      <!-- Left: Patient Vitals Cards -->
+      <div class="vitals-summary-card">
+        <div class="patient-header-badge">
+          <div class="patient-avatar-circle">RK</div>
+          <div>
+            <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-heading);">Ramesh Kumar</h2>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">
+              ABHA: <strong>91-4820-1928-4011</strong> • Age 54
+            </div>
+            <span style="font-size: 0.72rem; background: var(--emerald-light); color: var(--emerald-green); font-weight: 700; padding: 2px 8px; border-radius: 99px;">
+              ✓ PMJAY Cashless Active
+            </span>
+          </div>
+        </div>
+
+        <!-- Recorded Vitals Grid -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div class="vital-item">
+            <span class="vital-label">Blood Group</span>
+            <span id="patient-vitals-blood" class="vital-val" style="color: var(--coral-rose);">B+</span>
+          </div>
+          <div class="vital-item">
+            <span class="vital-label">Blood Sugar (Fast / Post)</span>
+            <span id="patient-vitals-sugar" class="vital-val" style="color: var(--saffron-warm); font-size: 0.95rem;">98 / 136 mg/dL</span>
+          </div>
+          <div class="vital-item">
+            <span class="vital-label">Blood Pressure</span>
+            <span id="patient-vitals-bp" class="vital-val" style="color: var(--primary-teal);">118/78 mmHg</span>
+          </div>
+          <div class="vital-item">
+            <span class="vital-label">Last Full Checkup</span>
+            <span id="patient-vitals-checkup" class="vital-val" style="font-size: 0.85rem;">18 Sep 2026</span>
+          </div>
+        </div>
+
+        <!-- Organ Health Inspector Detail Box -->
+        <div style="background: var(--bg-card-subtle); border: 1.5px solid var(--border-card); border-radius: var(--radius-lg); padding: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <h4 id="organ-inspect-title" style="font-size: 1.05rem; font-weight: 800; color: var(--text-heading);">
+              Pancreas & Blood Sugar (Metabolism)
+            </h4>
+            <span id="organ-inspect-status" class="badge organ-status-monitored" style="font-size: 0.72rem; padding: 2px 8px; border-radius: 99px; background: var(--saffron-light); color: var(--saffron-warm); font-weight: 800;">
+              MONITORED
+            </span>
+          </div>
+          <p id="organ-inspect-desc" style="font-size: 0.85rem; color: var(--text-body); line-height: 1.5;">
+            Fasting glucose is nominal at 98 mg/dL. Post-meal levels (136 mg/dL) are borderline. Recommended daily 15-min walk and low-glycemic foods.
+          </p>
+        </div>
+
+        <button class="btn-primary-action" onclick="alert('Prompt to Log New Checkup Data:\nBlood sugar, BP, or weight update will reflect across your personalized organ model!')">
+          + Update Latest Lab & Sugar Levels
+        </button>
+      </div>
+
+      <!-- Right: Interactive Personalized Organ Anatomy Diagram -->
+      <div class="anatomy-interactive-card">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-heading); margin-bottom: 0.25rem;">
+          Personalized Organ Health Diagram
+        </h3>
+        <span style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Color-coded as per Ramesh's recorded health vitals. Tap any organ to inspect!
+        </span>
+
+        <svg class="organ-health-svg" viewBox="0 0 240 440">
+          <!-- Body Silhouette outline -->
+          <path d="M 120 20 C 135 20, 145 32, 145 48 C 145 64, 135 75, 120 75 C 105 75, 95 64, 95 48 C 95 32, 105 20, 120 20 Z 
+                   M 90 85 C 105 80, 135 80, 150 85 L 158 160 L 150 240 L 160 380 L 138 380 L 130 260 L 110 260 L 102 380 L 80 380 L 90 240 L 82 160 Z"
+                fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+
+          <!-- Brain / Head Node (Normal Green) -->
+          <circle data-organ="head" class="organ-node organ-status-normal" cx="120" cy="46" r="16"/>
+          <text x="120" y="50" font-size="9" font-weight="700" fill="#ffffff" text-anchor="middle" pointer-events="none">Brain</text>
+
+          <!-- Lungs (Normal Green) -->
+          <ellipse data-organ="lungs" class="organ-node organ-status-normal" cx="102" cy="115" rx="14" ry="20"/>
+          <ellipse data-organ="lungs" class="organ-node organ-status-normal" cx="138" cy="115" rx="14" ry="20"/>
+
+          <!-- Heart (Normal Green) -->
+          <circle data-organ="heart" class="organ-node organ-status-normal" cx="120" cy="122" r="12"/>
+          <text x="120" y="125" font-size="8" font-weight="800" fill="#ffffff" text-anchor="middle" pointer-events="none">Heart</text>
+
+          <!-- Pancreas (Monitored Yellow / Saffron) -->
+          <rect data-organ="pancreas" class="organ-node organ-status-monitored" x="100" y="165" width="40" height="12" rx="4"/>
+          <text x="120" y="174" font-size="8" font-weight="700" fill="#ffffff" text-anchor="middle" pointer-events="none">Pancreas</text>
+
+          <!-- Knees / Joints (Monitored Yellow) -->
+          <circle data-organ="knees" class="organ-node organ-status-monitored" cx="98" cy="305" r="9"/>
+          <circle data-organ="knees" class="organ-node organ-status-monitored" cx="142" cy="305" r="9"/>
+        </svg>
+
+        <div style="display: flex; gap: 1rem; font-size: 0.78rem; font-weight: 700; margin-top: 0.5rem;">
+          <span style="color: var(--emerald-green);">● Green: Optimal / Normal</span>
+          <span style="color: var(--saffron-warm);">● Yellow: Monitored Vitals</span>
+          <span style="color: var(--coral-rose);">● Red: High Attention</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       PAGE 4: HOSPITAL PARTNER OPERATIONS & FOOTFALL STAFF SCHEDULER
+       ========================================================================== -->
+  <main id="page-partner" class="page-container hidden">
+    <div class="section-heading-bar">
+      <div>
+        <h1 class="section-title">
+          <span>🏥</span>
+          <span>Hospital Partner Portal & Staff Scheduling</span>
+        </h1>
+        <span class="section-subtitle">
+          How hospitals connect to NexusCare: manage footfall surges, deflect minor illnesses to AI, adjust department vacancies, and schedule staff breaks around peak rushes!
+        </span>
+      </div>
+    </div>
+
+    <div class="hospital-partner-grid">
+      
+      <!-- B2B Telemetry Deck -->
+      <div class="b2b-kpi-deck">
+        <div class="b2b-kpi-card">
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">Patient Footfall Today</span>
+          <div style="font-size: 2rem; font-weight: 800; color: var(--primary-teal-dark);">1,420 Patients</div>
+          <span style="font-size: 0.78rem; color: var(--emerald-green); font-weight: 700;">● Real-time hospital arrival tracking</span>
+        </div>
+
+        <div class="b2b-kpi-card">
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">Predicted Peak Rush Hours</span>
+          <div style="font-size: 1.8rem; font-weight: 800; color: var(--saffron-warm);">10:00 - 12:30 PM</div>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">High OPD congestion window</span>
+        </div>
+
+        <div class="b2b-kpi-card">
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">Minor Illnesses Deflected to AI</span>
+          <div style="font-size: 2rem; font-weight: 800; color: var(--sapphire-blue);">38% (540 Visits)</div>
+          <span style="font-size: 0.78rem; color: var(--sapphire-blue); font-weight: 700;">Saved hospital waiting congestion!</span>
+        </div>
+      </div>
+
+      <!-- Staff Scheduling Card with Footfall-Adjusted Breaks -->
+      <div class="staff-scheduler-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-heading);">
+              👨‍⚕️ Personalized Staff Duty & Footfall-Adjusted Shift Breaks
+            </h3>
+            <span style="font-size: 0.82rem; color: var(--text-muted);">
+              Individual login assigned per job. Rest and meal breaks are dynamically moved away from peak 10:00 - 12:30 PM surge!
+            </span>
+          </div>
+
+          <!-- Staff Selector -->
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <label style="font-size: 0.8rem; font-weight: 700;">Staff Member:</label>
+            <select id="partner-staff-select" class="access-btn" style="background: var(--bg-card); color: var(--text-heading); border: 1.5px solid var(--border-card); padding: 4px 10px;">
+              <option value="DOC-204">Dr. Priya Nair (DOC-204 - Cardiology)</option>
+              <option value="NURSE-102">Sister Sunita Devi (NURSE-102 - Triage)</option>
+              <option value="TECH-08">Rahul Sharma (TECH-08 - Radiology)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Schedule Timeline Details -->
+        <div style="margin-top: 1.25rem; background: var(--bg-card-subtle); border-radius: var(--radius-lg); padding: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+            <div>
+              <strong id="scheduler-staff-name" style="font-size: 1.1rem; color: var(--text-heading);">Dr. Priya Nair</strong>
+              <div id="scheduler-staff-role" style="font-size: 0.8rem; color: var(--text-muted);">Chief Cardiologist</div>
+            </div>
+            <span id="scheduler-staff-shift" class="badge" style="background: var(--primary-teal); color: #fff; font-size: 0.75rem; padding: 4px 10px; border-radius: 99px;">
+              Shift: 08:30 AM - 04:30 PM
+            </span>
+          </div>
+
+          <div class="schedule-timeline-bar">
+            <div class="schedule-slot-item">
+              <span>08:30 AM - 09:30 AM</span>
+              <strong>Morning Inpatient Ward Rounds & Critical ICU Review</strong>
+              <span class="badge" style="background: var(--emerald-light); color: var(--emerald-green); font-size: 0.75rem;">Completed</span>
+            </div>
+
+            <div class="schedule-slot-item" style="border-left: 4px solid var(--coral-rose);">
+              <span>09:30 AM - 12:30 PM</span>
+              <strong>Peak OPD Consultation Rush (All 36 Seats Active)</strong>
+              <span class="badge" style="background: var(--coral-light); color: var(--coral-rose); font-size: 0.75rem;">High Patient Surge</span>
+            </div>
+
+            <!-- Dynamically Adjusted Break Slot! -->
+            <div class="schedule-slot-item break-slot">
+              <span>12:30 PM - 01:15 PM</span>
+              <strong style="color: var(--saffron-warm);">
+                ☕ Scheduled Lunch & Rest Break (Shifted into Low-Footfall Window)
+              </strong>
+              <span class="badge" style="background: var(--saffron-orange); color: #fff; font-size: 0.75rem;">AI Optimized Break</span>
+            </div>
+
+            <div class="schedule-slot-item">
+              <span>01:15 PM - 04:30 PM</span>
+              <strong>Afternoon Specialty Cath Lab & Tele-Consultations</strong>
+              <span class="badge" style="background: var(--bg-card); color: var(--text-muted); font-size: 0.75rem;">Upcoming</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Department Vacancy Controller -->
+        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: #ffffff; border: 1.5px solid var(--border-card); padding: 1rem 1.5rem; border-radius: var(--radius-lg);">
+          <div>
+            <strong style="font-size: 0.95rem; color: var(--text-heading);">Dynamic Department Capacity Control</strong>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Increase or decrease bookable slots based on doctor attendance.</div>
+          </div>
+          <button id="btn-add-capacity" class="btn-primary-action" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">
+            + Increase Department Capacity (+2 Slots)
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       PAGE 5: EMERGENCY CARE & CALLING AN AMBULANCE (108)
+       ========================================================================== -->
+  <main id="page-emergency" class="page-container hidden">
+    <div class="ambulance-hero-card">
+      <div>
+        <span style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; color: var(--coral-rose);">
+          🚨 National Emergency Medical Service
+        </span>
+        <h1 style="font-size: 2.2rem; font-weight: 900; color: var(--text-heading); margin: 0.35rem 0;">
+          Need an Ambulance Right Now?
+        </h1>
+        <p style="font-size: 1rem; color: var(--text-body); max-width: 600px;">
+          Instant dispatch with live GPS tracking, cardiac support, and automatic triage bed reservation at the nearest partner hospital.
+        </p>
+      </div>
+
+      <button id="btn-call-ambulance-108" class="btn-big-sos">
+        <span>🚑 DISPATCH 108 AMBULANCE</span>
+      </button>
+    </div>
+
+    <!-- Live GPS Ambulance Tracking Simulation Card -->
+    <div id="ambulance-tracking-banner" class="hidden" style="background: var(--emerald-light); border: 2px solid var(--emerald-green); border-radius: var(--radius-xl); padding: 1.5rem 2rem; margin-bottom: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: #065f46;">Ambulance Live Tracking</span>
+          <h2 style="font-size: 1.5rem; font-weight: 800; color: #065f46;">Vehicle DL-1C-4921 (Cardiac ACLS) En Route</h2>
+          <div style="font-size: 0.88rem; color: #065f46;">Driver: Rajesh Kumar (+91 98112-90123) • Hospital: AIIMS Trauma</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 2.4rem; font-weight: 900; color: #065f46; line-height: 1;">7 Mins</div>
+          <span style="font-size: 0.8rem; color: #065f46; font-weight: 700;">Live Estimated Arrival</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nearest Partner Hospitals Directory -->
+    <div class="section-heading-bar">
+      <div>
+        <h2 class="section-title">
+          <span>🏥</span>
+          <span>Nearest Partner Hospitals with Live ICU Vacancies</span>
+        </h2>
+        <span class="section-subtitle">Real-time emergency facility bed counts</span>
+      </div>
+    </div>
+
+    <div class="challenges-grid">
+      <div class="challenge-card" style="border-left: 5px solid var(--coral-rose);">
+        <div>
+          <strong style="font-size: 1.15rem; color: var(--text-heading);">AIIMS Trauma Center, New Delhi</strong>
+          <div style="font-size: 0.82rem; color: var(--text-muted);">2.8 km away • Level 1 Trauma Center</div>
+          <div style="margin-top: 0.5rem; font-size: 0.85rem; font-weight: 700; color: var(--coral-rose);">
+            ● 4 ICU Beds Vacant • Active Cath Lab
+          </div>
+        </div>
+        <a href="tel:108" class="btn-primary-action" style="background: var(--coral-rose); text-decoration: none; justify-content: center; font-size: 0.85rem;">
+          📞 Direct Emergency Line
+        </a>
+      </div>
+
+      <div class="challenge-card" style="border-left: 5px solid var(--primary-teal);">
+        <div>
+          <strong style="font-size: 1.15rem; color: var(--text-heading);">Safdarjung Hospital</strong>
+          <div style="font-size: 0.82rem; color: var(--text-muted);">3.4 km away • Burn & Cardiac Unit</div>
+          <div style="margin-top: 0.5rem; font-size: 0.85rem; font-weight: 700; color: var(--emerald-green);">
+            ● 9 ICU Beds Vacant • 24/7 Blood Bank
+          </div>
+        </div>
+        <a href="tel:108" class="btn-primary-action" style="background: var(--primary-teal); text-decoration: none; justify-content: center; font-size: 0.85rem;">
+          📞 Direct Emergency Line
+        </a>
+      </div>
+
+      <div class="challenge-card" style="border-left: 5px solid var(--sapphire-blue);">
+        <div>
+          <strong style="font-size: 1.15rem; color: var(--text-heading);">Max Super Speciality Hospital</strong>
+          <div style="font-size: 0.82rem; color: var(--text-muted);">5.1 km away • Pediatric ICU</div>
+          <div style="margin-top: 0.5rem; font-size: 0.85rem; font-weight: 700; color: var(--sapphire-blue);">
+            ● 6 ICU Beds Vacant • Stroke Center
+          </div>
+        </div>
+        <a href="tel:108" class="btn-primary-action" style="background: var(--sapphire-blue); text-decoration: none; justify-content: center; font-size: 0.85rem;">
+          📞 Direct Emergency Line
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       FLOATING AI CHATBOT (Minor Ailments, On-Call Doctor, Triage & Booking)
+       ========================================================================== -->
+  <div class="floating-chatbot-capsule">
+    <button id="floating-chatbot-trigger" class="chatbot-trigger-btn" title="Open NexusCare AI Health Assistant">
+      💬
+    </button>
+  </div>
+
+  <!-- Chatbot Window Container -->
+  <div id="chatbot-window-container" class="chatbot-window hidden">
+    <div class="chat-header">
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <span style="font-size: 1.4rem;">🩺</span>
+        <div>
+          <strong style="font-size: 0.95rem;">NexusCare AI Doctor Assistant</strong>
+          <div style="font-size: 0.72rem; opacity: 0.85;">Home remedies, on-call doctor & triage</div>
+        </div>
+      </div>
+      <button id="btn-close-chatbot" style="background: transparent; border: none; color: #fff; font-size: 1.2rem; cursor: pointer;">✕</button>
+    </div>
+
+    <!-- Quick Prompt Pills for Minor Inconveniences & On-Call Doctor -->
+    <div style="display: flex; gap: 0.4rem; padding: 0.6rem 0.85rem; background: #ffffff; border-bottom: 1px solid var(--border-card); overflow-x: auto;">
+      <button class="access-btn chat-quick-tag" data-prompt="I have slight acidity and heartburn after dinner" style="background: var(--primary-teal-light); color: var(--primary-teal-dark); border: none;">
+        💡 Mild Acidity
+      </button>
+      <button class="access-btn chat-quick-tag" data-prompt="My child has mild runny nose and cough" style="background: var(--saffron-light); color: var(--saffron-warm); border: none;">
+        👶 Child Cold
+      </button>
+      <button class="access-btn chat-quick-tag" data-prompt="Can I arrange an on-call consultation with a doctor?" style="background: var(--sapphire-light); color: var(--sapphire-blue); border: none;">
+        📞 Doctor On-Call
+      </button>
+      <button class="access-btn chat-quick-tag" data-prompt="Severe crushing chest pain radiating to left arm" style="background: var(--coral-light); color: var(--coral-rose); border: none;">
+        🚨 Chest Pain
+      </button>
+    </div>
+
+    <div id="chat-messages-box" class="chat-messages-scroll">
+      <div class="chat-bubble ai">
+        Hello! I am NexusCare AI. You can tell me about minor symptoms (acidity, cold, small scrapes) for home remedies to avoid hospital visits, arrange an on-call doctor conversation, or book an appointment seat. How can I help?
+      </div>
+    </div>
+
+    <div class="chat-input-bar">
+      <input type="text" id="chat-input-text" class="chat-input-field" placeholder="Describe symptoms or ask for doctor on-call...">
+      <button id="btn-chat-send" class="btn-primary-action" style="padding: 0.6rem 1rem;">
+        Send
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       LOGIN / AUTHENTICATION MODAL
+       ========================================================================== -->
+  <div id="auth-modal-dialog" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <button id="btn-close-auth-modal" class="close-modal-x">✕</button>
+      <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-heading); margin-bottom: 0.35rem;">
+        NexusCare Portal Login
+      </h2>
+      <span style="font-size: 0.82rem; color: var(--text-muted); display: block; margin-bottom: 1.25rem;">
+        Access patient health records, BookMyShow appointments, or hospital staff consoles.
+      </span>
+
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <button class="demo-user-pick btn-secondary-action" data-user="patient" style="text-align: left; justify-content: flex-start; padding: 0.85rem 1rem;">
+          <span style="font-size: 1.3rem;">👤</span>
+          <div>
+            <strong>Ramesh Kumar (Patient)</strong>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">ABHA ID: 91-4820 • Blood Group B+ • Vitals Tracking</div>
+          </div>
+        </button>
+
+        <button class="demo-user-pick btn-secondary-action" data-user="staff" style="text-align: left; justify-content: flex-start; padding: 0.85rem 1rem;">
+          <span style="font-size: 1.3rem;">👨‍⚕️</span>
+          <div>
+            <strong>Dr. Priya Nair (Hospital Staff)</strong>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Staff ID: DOC-204 • Cardiology • Duty Scheduler</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

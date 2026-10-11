@@ -1,0 +1,1158 @@
+/* ==========================================================================
+   NexusCare - Ergonomic Multi-Generational Healthcare Portal
+   Design System: Accessible for Kids, Adults & Seniors
+   Vibrant, Colorful, Clean & Friendly Hospital Aesthetics
+   Includes BookMyShow-style department vacancy grid & personalized anatomy
+   ========================================================================== */
+
+:root {
+  /* Dynamic font scaling */
+  --base-font-size: 16px;
+
+  /* Vibrant & Welcoming Color System */
+  --primary-teal: #0d9488;
+  --primary-teal-dark: #0f766e;
+  --primary-teal-light: #ccfbf1;
+  --teal-glow: rgba(13, 148, 136, 0.2);
+
+  --saffron-orange: #f97316;
+  --saffron-warm: #ea580c;
+  --saffron-light: #ffedd5;
+
+  --sapphire-blue: #2563eb;
+  --sapphire-dark: #1d4ed8;
+  --sapphire-light: #dbeafe;
+
+  --emerald-green: #10b981;
+  --emerald-light: #d1fae5;
+
+  --coral-rose: #f43f5e;
+  --coral-light: #ffe4e6;
+
+  --sunshine-yellow: #fbbf24;
+  --purple-accent: #8b5cf6;
+  --purple-light: #ede9fe;
+
+  /* Surfaces & Backgrounds */
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-subtle: #f1f5f9;
+  --border-card: #e2e8f0;
+  --border-focus: #0d9488;
+
+  /* Text colors */
+  --text-heading: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 28px -4px rgba(15, 23, 42, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.06);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-smooth: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Accessibility Modes */
+body.high-contrast {
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --text-heading: #000000;
+  --text-body: #111111;
+  --border-card: #000000;
+  --primary-teal: #006655;
+  --primary-teal-dark: #004433;
+}
+
+body.kid-mode {
+  --base-font-size: 17px;
+  --primary-teal: #06b6d4;
+  --saffron-orange: #f59e0b;
+  --sapphire-blue: #3b82f6;
+  font-family: 'Comic Sans MS', 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+body.senior-mode {
+  --base-font-size: 19px;
+  line-height: 1.7;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--base-font-size);
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  color: var(--text-body);
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Ergonomic Accessibility Bar (Topmost) */
+.accessibility-bar {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 0.35rem 1.25rem;
+  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  z-index: 60;
+  position: relative;
+}
+
+.access-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.access-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.access-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.access-btn.active {
+  background: var(--saffron-orange);
+  border-color: var(--saffron-orange);
+  color: #ffffff;
+}
+
+/* Top Sticky Navigation Bar */
+.top-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-card);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.brand-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--primary-teal), var(--sapphire-blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 12px var(--teal-glow);
+}
+
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-teal-dark);
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.brand-tagline {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  list-style: none;
+}
+
+.nav-link-btn {
+  padding: 0.55rem 0.95rem;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  color: var(--text-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+
+.nav-link-btn:hover {
+  background: var(--bg-card-subtle);
+  color: var(--primary-teal-dark);
+}
+
+.nav-link-btn.active {
+  background: var(--primary-teal);
+  color: #ffffff;
+  box-shadow: 0 2px 10px var(--teal-glow);
+}
+
+.nav-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.btn-emergency-pill {
+  background: var(--coral-light);
+  border: 1.5px solid var(--coral-rose);
+  color: var(--coral-rose);
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  animation: pulseEmergency 2s infinite ease-in-out;
+  transition: all var(--transition-fast);
+}
+
+.btn-emergency-pill:hover {
+  background: var(--coral-rose);
+  color: #ffffff;
+}
+
+@keyframes pulseEmergency {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); }
+  50% { transform: scale(1.03); box-shadow: 0 0 12px rgba(244, 63, 94, 0.3); }
+}
+
+.btn-auth-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-card);
+  background: var(--bg-card);
+  color: var(--text-heading);
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.btn-auth-profile:hover {
+  border-color: var(--primary-teal);
+  background: var(--primary-teal-light);
+}
+
+/* Main Content Container */
+.page-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 3rem;
+  width: 100%;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Home Section: Health Feed, Challenges, Hygiene Articles & Surveys
+   ========================================================================== */
+.home-hero-banner {
+  background: linear-gradient(135deg, #ffffff 0%, var(--primary-teal-light) 50%, var(--sapphire-light) 100%);
+  border: 1.5px solid rgba(13, 148, 136, 0.2);
+  border-radius: var(--radius-xl);
+  padding: 2rem 2.25rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-hero-text {
+  max-width: 680px;
+}
+
+.home-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #ffffff;
+  border: 1px solid var(--primary-teal);
+  color: var(--primary-teal-dark);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.home-hero-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  color: var(--text-heading);
+  line-height: 1.2;
+  margin-bottom: 0.65rem;
+}
+
+.home-hero-desc {
+  font-size: 1rem;
+  color: var(--text-body);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.hero-action-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary-action {
+  background: var(--primary-teal);
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 14px var(--teal-glow);
+  transition: all var(--transition-smooth);
+}
+
+.btn-primary-action:hover {
+  background: var(--primary-teal-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--teal-glow);
+}
+
+.btn-secondary-action {
+  background: #ffffff;
+  color: var(--text-heading);
+  border: 1.5px solid var(--border-card);
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-smooth);
+}
+
+.btn-secondary-action:hover {
+  border-color: var(--primary-teal);
+  background: var(--primary-teal-light);
+}
+
+/* User Quick Health Card on Hero */
+.hero-vitals-card {
+  background: #ffffff;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  min-width: 280px;
+  box-shadow: var(--shadow-sm);
+}
+
+.vitals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.vitals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.vital-item {
+  background: var(--bg-card-subtle);
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.vital-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.vital-val {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-heading);
+}
+
+/* Section Header */
+.section-heading-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2.25rem 0 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.section-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Daily Health Challenges & Streaks */
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.challenge-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.challenge-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-teal);
+  box-shadow: var(--shadow-md);
+}
+
+.challenge-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.challenge-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+}
+
+.challenge-progress-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-card-subtle);
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.challenge-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width 0.4s ease;
+}
+
+/* Hygiene & Health Articles Cards */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.article-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.article-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary-teal);
+  box-shadow: var(--shadow-md);
+}
+
+.article-thumb {
+  height: 140px;
+  background: linear-gradient(135deg, var(--primary-teal-light), var(--sapphire-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+}
+
+.article-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.article-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary-teal);
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.article-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  line-height: 1.35;
+  margin-bottom: 0.45rem;
+}
+
+.article-read-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Health Surveys Box */
+.survey-banner-box {
+  background: linear-gradient(135deg, #ffffff 0%, var(--saffron-light) 100%);
+  border: 1.5px solid rgba(249, 115, 22, 0.25);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   PAGE 2: BookMyShow-Style Department Vacancy & Seat Booking
+   ========================================================================== */
+.bms-booking-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 2rem;
+}
+
+.bms-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom: 1.5px solid var(--border-card);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.dept-pill-selector {
+  display: flex;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dept-slot-pill {
+  padding: 0.65rem 1.2rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-card);
+  background: var(--bg-card);
+  color: var(--text-heading);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.dept-slot-pill:hover {
+  border-color: var(--primary-teal);
+  background: var(--primary-teal-light);
+}
+
+.dept-slot-pill.active {
+  background: var(--primary-teal);
+  color: #ffffff;
+  border-color: var(--primary-teal);
+  box-shadow: 0 4px 12px var(--teal-glow);
+}
+
+.dept-vacancy-badge {
+  font-size: 0.72rem;
+  background: rgba(0, 0, 0, 0.12);
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+}
+
+/* Screen / Doctor Consultation Desk Bar */
+.theater-screen-bar {
+  width: 75%;
+  margin: 1.5rem auto 2.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.theater-screen-curve {
+  height: 8px;
+  background: linear-gradient(90deg, transparent, var(--primary-teal), transparent);
+  border-radius: 50% 50% 0 0;
+  box-shadow: 0 6px 14px var(--teal-glow);
+}
+
+.theater-screen-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary-teal-dark);
+  margin-top: 0.5rem;
+}
+
+/* Seat Matrix (Movie Hall Grid) */
+.seat-matrix-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.seat-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.seat-row-label {
+  width: 28px;
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.seat-tile {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-card);
+  background: var(--bg-card);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.seat-tile.vacant {
+  background: var(--emerald-light);
+  border-color: var(--emerald-green);
+  color: #065f46;
+}
+
+.seat-tile.vacant:hover {
+  transform: scale(1.18);
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.35);
+}
+
+.seat-tile.selected {
+  background: var(--saffron-orange) !important;
+  border-color: var(--saffron-warm) !important;
+  color: #ffffff !important;
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+}
+
+.seat-tile.occupied {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.seat-tile.priority-senior {
+  background: var(--sapphire-light);
+  border-color: var(--sapphire-blue);
+  color: var(--sapphire-dark);
+}
+
+/* Seat Legend */
+.seat-legend-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.legend-sample {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+
+/* Booking Summary Drawer */
+.booking-checkout-strip {
+  background: var(--bg-card-subtle);
+  border: 1.5px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* ==========================================================================
+   PAGE 3: Personalized Patient Health Record & Organ Health Anatomy
+   ========================================================================== */
+.health-record-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.vitals-summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.patient-header-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.patient-avatar-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--primary-teal), var(--sapphire-blue));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+  font-weight: 800;
+}
+
+/* Personalized Organ Health Anatomy Canvas */
+.anatomy-interactive-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.organ-health-svg {
+  width: 100%;
+  max-width: 320px;
+  height: 480px;
+}
+
+.organ-node {
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.organ-node:hover {
+  filter: drop-shadow(0 0 10px rgba(13, 148, 136, 0.6));
+  transform: scale(1.05);
+}
+
+.organ-status-normal {
+  fill: #10b981;
+  stroke: #059669;
+}
+
+.organ-status-monitored {
+  fill: #f59e0b;
+  stroke: #d97706;
+}
+
+.organ-status-flagged {
+  fill: #ef4444;
+  stroke: #b91c1c;
+}
+
+/* ==========================================================================
+   PAGE 4: Hospital Partner Command, Needs/Resources & Staff Scheduler
+   ========================================================================== */
+.hospital-partner-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.b2b-kpi-deck {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.b2b-kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.staff-scheduler-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.schedule-timeline-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.schedule-slot-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-card);
+  background: var(--bg-card-subtle);
+}
+
+.schedule-slot-item.break-slot {
+  background: var(--saffron-light);
+  border-color: var(--saffron-orange);
+}
+
+/* ==========================================================================
+   PAGE 5: Emergency & Calling an Ambulance (108)
+   ========================================================================== */
+.ambulance-hero-card {
+  background: linear-gradient(135deg, #ffffff 0%, var(--coral-light) 100%);
+  border: 2px solid var(--coral-rose);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.btn-big-sos {
+  background: var(--coral-rose);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: var(--radius-pill);
+  font-size: 1.25rem;
+  font-weight: 900;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(244, 63, 94, 0.45);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: pulseEmergency 1.8s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   FLOATING AI CHATBOT (Triage, Symptoms, On-Call Doctor, Minor Advice)
+   ========================================================================== */
+.floating-chatbot-capsule {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 100;
+}
+
+.chatbot-trigger-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-teal), var(--sapphire-blue));
+  border: 3px solid #ffffff;
+  color: #ffffff;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(13, 148, 136, 0.4);
+  transition: transform var(--transition-smooth);
+}
+
+.chatbot-trigger-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Chat Window Modal */
+.chatbot-window {
+  position: fixed;
+  bottom: 6.5rem;
+  right: 2rem;
+  width: 420px;
+  max-width: 90vw;
+  height: 620px;
+  max-height: 80vh;
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.22);
+  border: 1px solid var(--border-card);
+  display: flex;
+  flex-direction: column;
+  z-index: 101;
+  overflow: hidden;
+  animation: modalEnter 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalEnter {
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.chat-header {
+  background: linear-gradient(135deg, var(--primary-teal-dark), var(--sapphire-dark));
+  color: #ffffff;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-messages-scroll {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  background: #f8fafc;
+}
+
+.chat-bubble {
+  max-width: 85%;
+  padding: 0.85rem 1.15rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.chat-bubble.ai {
+  background: #ffffff;
+  border: 1px solid var(--border-card);
+  color: var(--text-heading);
+  align-self: flex-start;
+  border-top-left-radius: 4px;
+}
+
+.chat-bubble.user {
+  background: var(--primary-teal);
+  color: #ffffff;
+  align-self: flex-end;
+  border-top-right-radius: 4px;
+  font-weight: 500;
+}
+
+.chat-input-bar {
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  border-top: 1px solid var(--border-card);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-input-field {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-card);
+  outline: none;
+  font-size: 0.88rem;
+}
+
+.chat-input-field:focus {
+  border-color: var(--primary-teal);
+}
+
+/* Modals & Popups */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-dialog {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  max-width: 520px;
+  width: 100%;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.close-modal-x {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: var(--bg-card-subtle);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .top-navbar {
+    flex-wrap: wrap;
+    padding: 0.65rem 1rem;
+  }
+  .nav-links {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    padding-top: 0.5rem;
+  }
+  .health-record-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .chatbot-window {
+    width: calc(100vw - 2rem);
+    right: 1rem;
+    bottom: 5.5rem;
+  }
+}
